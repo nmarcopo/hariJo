@@ -8,6 +8,9 @@ Milestone 1 Test
 We pickled a "Battle" object from a sample run of our bot playing online.
 This allows us to easily show the search functionality with a consistent result.
 Given the battle state, the chosen move should be "icepunch".
+
+Note: in real gameplay, the battles object is constantly updated and the bot
+will react accordingly. For our test purpose we wanted consistent input and output.
 """
 
 bot = BattleBot("Test Battle")
