@@ -5,7 +5,7 @@ install:
 	source milestone1/bin/activate && pip install -r requirements.txt
 
 test:
-	python run.py
+	python test.py
 
 clean:
 	rm -rf milestone1
