@@ -5,6 +5,7 @@ install:
 	source milestone1/bin/activate && pip install -r requirements.txt
 
 test:
+	@echo Make sure you\'ve ran make install first!
 	source milestone1/bin/activate && python test.py
 
 clean:
