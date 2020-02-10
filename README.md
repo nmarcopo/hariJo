@@ -1,12 +1,14 @@
-# Showdown  ![umbreon](https://play.pokemonshowdown.com/sprites/xyani/hariyama.gif)
-Showdown is a Pokémon battle-bot that can play battles on [Pokemon Showdown](https://pokemonshowdown.com/).
+# HariJo  ![Hariyama](https://play.pokemonshowdown.com/sprites/xyani/hariyama.gif)
+HariJo is a Pokémon battle-bot that can play battles on [Pokemon Showdown](https://pokemonshowdown.com/). It is based on [pmariglia's Showdown Bot](https://github.com/pmariglia/showdown).
 
-The bot can play single battles in generations 4 through 8 however some of the battle mechanics assume it is gen8.
+Our bot currently focuses on gen 4 random battles.
 
-![badge](https://action-badges.now.sh/pmariglia/showdown)
+Created by Austin Sura and Nicholas Marcopoli
 
 ## Python version
-Developed and tested using Python 3.6.3.
+Developed and tested using Python 3.7.3.
+
+# The following notes are left over from pmariglia's repository
 
 ## Getting Started
 
