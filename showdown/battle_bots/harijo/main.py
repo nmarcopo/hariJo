@@ -72,7 +72,7 @@ class BattleBot(Battle):
         return top3Score.pop().parent.parent.name
 
     def aggressive_pick(self, root):
-        # WHEN YOU'RE AHEAD
+        # WHEN YOU'RE BEHIND
         constantFactor=2
         bestAveNode = None
         bestAve = -float('inf')
