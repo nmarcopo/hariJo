@@ -17,8 +17,8 @@ class BattleBot(Battle):
 
     def find_best_move(self):
         battles = self.prepare_battles(join_moves_together=True)
-        safest_move = self.pick_move_from_battles(battles)
-        return format_decision(self, safest_move)
+        move = self.pick_move_from_battles(battles)
+        return format_decision(self, move)
 
     def top_quartile_strat(self, root):
         # WHEN YOU'RE BEHIND
@@ -71,6 +71,54 @@ class BattleBot(Battle):
         shuffle(top3Score)
         return top3Score.pop().parent.parent.name
 
+    def aggressive_pick(self, root):
+        # WHEN YOU'RE AHEAD
+        constantFactor=2
+        bestAveNode = None
+        bestAve = -float('inf')
+        for myMove in root.children:
+            moveScores = []
+            for opMove in myMove.children:
+                moveScores.append(opMove.children[0])
+            
+            s = 0
+            for m in moveScores:
+                s += float(m.name)
+            print(f"Average for {moveScores[0].parent.parent.name}: {s / len(moveScores)}")
+            s += constantFactor*int(min(moveScores, key=lambda x: float(x.name)).name)
+            weightedAve = s / (len(moveScores) + constantFactor)
+            print(f"Weighted average for {moveScores[0].parent.parent.name}: {weightedAve}")
+            print()
+            if weightedAve > bestAve:
+                bestAveNode = moveScores[0]
+                bestAve = weightedAve
+            elif weightedAve == bestAve and bool(randint(0,1)):
+                bestAveNode = moveScores[0]
+                bestAve = weightedAve
+        
+        return bestAveNode.parent.parent.name
+
+    def safest_pick(self, root):
+        # WHEN YOU'RE AHEAD
+        safestNode = None
+        safestMin = -float('inf')
+        for myMove in root.children:
+            moveScores = []
+            for opMove in myMove.children:
+                moveScores.append(opMove.children[0])
+            
+            minScore = int(min(moveScores, key=lambda x: float(x.name)).name)
+            print(f"Min Score for {moveScores[0].parent.parent.name}: {minScore}")
+            print()
+            if minScore > safestMin:
+                safestNode = moveScores[0]
+                safestMin = minScore
+            elif minScore == safestMin and bool(randint(0,1)):
+                safestNode = moveScores[0]
+                safestMin = minScore
+        
+        return safestNode.parent.parent.name
+
     def pick_move_from_battles(self, battles):
         # Only work on current battle
         # In practice the bot can play several at once, for now we simplified to one battle.
@@ -103,7 +151,9 @@ class BattleBot(Battle):
 
         
         # when you're behind, use top quartile strat
-        bot_choice = self.top_quartile_strat(root)
+        bot_choice = self.aggressive_pick(root)
+        safest_choice = self.safest_pick(root)
+        print(f"The safest pick is {safest_choice}")
         
         if False:
             # WHEN YOU'RE FAR AHEAD, use top 3 strat
