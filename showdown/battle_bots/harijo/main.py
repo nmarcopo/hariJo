@@ -71,9 +71,8 @@ class BattleBot(Battle):
         shuffle(top3Score)
         return top3Score.pop().parent.parent.name
 
-    def aggressive_pick(self, root):
+    def aggressive_pick(self, root, safety):
         # WHEN YOU'RE BEHIND
-        constantFactor=2
         bestAveNode = None
         bestAve = -float('inf')
         for myMove in root.children:
@@ -84,11 +83,11 @@ class BattleBot(Battle):
             s = 0
             for m in moveScores:
                 s += float(m.name)
-            print(f"Average for {moveScores[0].parent.parent.name}: {s / len(moveScores)}")
-            s += constantFactor*int(min(moveScores, key=lambda x: float(x.name)).name)
-            weightedAve = s / (len(moveScores) + constantFactor)
-            print(f"Weighted average for {moveScores[0].parent.parent.name}: {weightedAve}")
-            print()
+            # print(f"Average for {moveScores[0].parent.parent.name}: {s / len(moveScores)}")
+            s += safety*int(min(moveScores, key=lambda x: float(x.name)).name)
+            weightedAve = s / (len(moveScores) + safety)
+            # print(f"Weighted average for {moveScores[0].parent.parent.name}: {weightedAve}")
+            # print()
             if weightedAve > bestAve:
                 bestAveNode = moveScores[0]
                 bestAve = weightedAve
@@ -108,8 +107,8 @@ class BattleBot(Battle):
                 moveScores.append(opMove.children[0])
             
             minScore = int(min(moveScores, key=lambda x: float(x.name)).name)
-            print(f"Min Score for {moveScores[0].parent.parent.name}: {minScore}")
-            print()
+            # print(f"Min Score for {moveScores[0].parent.parent.name}: {minScore}")
+            # print()
             if minScore > safestMin:
                 safestNode = moveScores[0]
                 safestMin = minScore
@@ -149,15 +148,46 @@ class BattleBot(Battle):
         for pre, _, node in RenderTree(root):
             print("%s%s" % (pre, node.name))
 
+        myTotalHP = 0.0 # max of 600, 100 points for full hp
+        oppTotalHP = 0.0
+
+        # calculate my total hp
+        my_pokes = state.self
+        # get active pokemon hp if it isn't dead
+        if my_pokes.active.maxhp != 0:
+            myTotalHP += my_pokes.active.hp / my_pokes.active.maxhp
+        # get reserve pokmeons hps
+        for p in my_pokes.reserve.values():
+            if p.maxhp !=0:
+                myTotalHP += p.hp / p.maxhp
+        myTotalHP *= 100
+
+        # calculate opp total hp
+        opp_pokes = state.opponent
+        # get active pokemon hp
+        if opp_pokes.active.maxhp != 0:
+            oppTotalHP += opp_pokes.active.hp / opp_pokes.active.maxhp
+        # get reserve pokmeons hps
+        for p in opp_pokes.reserve.values():
+            if p.maxhp !=0:
+                oppTotalHP += p.hp / p.maxhp
         
-        # when you're behind, use top quartile strat
-        bot_choice = self.aggressive_pick(root)
-        safest_choice = self.safest_pick(root)
-        print(f"The safest pick is {safest_choice}")
-        
-        if False:
-            # WHEN YOU'RE FAR AHEAD, use top 3 strat
-            bot_choice = self.top_3_moves_strat(root)
+        #accounts for the pokemon of opponent that have not been revealed
+        unseenPoke = 5-len(opp_pokes.reserve)
+        oppTotalHP += unseenPoke
+        oppTotalHP *=100
+
+    
+        if myTotalHP > oppTotalHP:
+            print("We are ahead, bot will play safe")
+            bot_choice = self.safest_pick(root)
+        else:
+            #the higher the safety constant, the more likely we will choose the safest move. The lower, the more aggressive our bot will play
+            safety = 3*myTotalHP/oppTotalHP
+            print(f"we are behind, bot will play aggressively with safety constant of {safety}")
+            bot_choice = self.aggressive_pick(root,safety)
+            print(f"choice: {bot_choice}")
+            print(f"the safest pick was {self.safest_pick(root)}")
 
         print("Choice: {}".format(bot_choice))
         return bot_choice
