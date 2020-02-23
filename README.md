@@ -8,6 +8,42 @@ Created by Austin Sura and Nicholas Marcopoli
 ## Python version
 Developed and tested using Python 3.7.3.
 
+## Milestone 2 README Section
+
+Our control mechanism is an implementation of the behavior tree concept. Note, we do not have a concrete behavior tree, but rather IF statements that accomplish the same functionality as a behavior tree implemented as a tree. Our tree checks the game state to determine if we are ahead, or if we are behind and to what degree. This is determined by calculating the total HP percentage of our bot’s pokemon and the opponents pokemon. Based on this information, we will choose an appropriate strategy for selecting a move.
+If we are behind, our move selection process involves computing a weighted average of all possible outcomes using a safety constant and this value is decreased as we fall further behind. The move with the highest weighted average is selected. The decreased safety constant leads to more aggressive moves. If we are ahead, our move selector will always pick the move with the least downside using the minimax algorithm.
+
+The high level strategy directs the flow of the control mechanism from the top level because the game state is the first thing considered when choosing what move is appropriate. Our win condition is making sure that the opponent’s HP percentage reaches 0 before ours does. Our high level strategy helps us reach this win condition, as if we are losing by a large margin we cannot afford to play patiently and should play aggressively.
+
+
+Our dependencies:
+
+```
+requests==2.20.1
+environs==4.1.0
+websockets==7.0
+python-dateutil==2.8.0
+nashpy==0.0.17
+pandas==0.23.4
+numpy==1.16.2
+anytree
+Dill
+```
+
+Dependency Instructions:
+
+`make install`, installs the necessary dependencies.
+
+
+Runtime instructions:
+
+`make build` - The game will play against a random live player from the matchmaking pool, automatically and you will see the game play out in the terminal.
+
+If you would like to watch the game, you can follow these instructions:
+- navigate to https://play.pokemonshowdown.com/
+- log in to the user “HariJo” with the password, “battlebot”
+- run `make build` to start the game
+
 # The following notes are left over from pmariglia's repository
 
 ## Getting Started
