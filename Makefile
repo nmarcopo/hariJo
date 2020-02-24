@@ -1,11 +1,11 @@
 SHELL := /bin/bash
 
-install: ./milestone1/bin/activate
+install: .installed
 
-test: ./milestone1/bin/activate
+test: .installed
 	source milestone1/bin/activate && python test.py
 
-build: ./milestone1/bin/activate
+build: .installed
 	@echo To watch the bot play, go to https://play.pokemonshowdown.com/
 	@echo and log in as the user \"harijo\" with password \"battlebot\"
 	@echo Otherwise, you can just watch the bot play from the terminal.
@@ -16,9 +16,9 @@ build: ./milestone1/bin/activate
 clean:
 	rm -rf milestone1
 
-./milestone1/bin/activate:
+.installed:
 	python3 -m venv milestone1
 	source milestone1/bin/activate && pip install -r requirements.txt
-	# @echo "installed" > .installed
+	@echo "installed" > .installed
 
 .PHONY: install test build clean
