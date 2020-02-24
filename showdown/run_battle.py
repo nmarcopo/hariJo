@@ -17,6 +17,8 @@ from showdown.websocket_client import PSWebsocketClient
 from websockets.exceptions import ConnectionClosed
 
 import re
+from time import sleep
+import requests
 
 
 def battle_is_finished(msg):
@@ -178,7 +180,19 @@ async def pokemon_battle(ps_websocket_client, pokemon_battle_type):
                     # pattern match for the ranking
                     rankRegex = re.compile(f"{config.username}'s rating:.*<strong>([0-9]+)")
                     rankSearch = rankRegex.search(rating)
-                    rating = rankSearch.group(1)
+                    try:
+                        rating = rankSearch.group(1)
+                    except AttributeError:
+                        # exception occurs when response not received.
+                        print("Error, the ranking was not received. Getting ranking manually...")
+                        await ps_websocket_client.send_message(battle.battle_tag, ["/rank"])
+                        rankSearch = None
+                        sleep(15) # wait for ladder to update, then get ranking from server directly
+                        ladder = requests.get(f"https://pokemonshowdown.com/users/{config.username}")
+                        ladderHTML = ladder.text
+                        rankRegex = re.compile(f'<tr><td>{config.pokemon_mode.lower()}</td><td style="text-align:center"><strong>([0-9]+)')
+                        rankSearch = rankRegex.search(ladderHTML)
+                        rating = rankSearch.group(1)
                     with open("rankingsProgress.txt", "a") as f:
                         f.write(rating + '\n')
                     print("rating:", rating)
