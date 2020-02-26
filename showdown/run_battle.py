@@ -172,7 +172,7 @@ async def pokemon_battle(ps_websocket_client, pokemon_battle_type):
             await ps_websocket_client.send_message(battle.battle_tag, [config.battle_ending_message])
             
             # Get ranking after ladder match for analysis
-            if config.track_ranking == "True":
+            if config.track_ranking == "True" and config.bot_mode == "SEARCH_LADDER":
                 rating = ""
                 while ("rating" not in rating and "score could not be retrieved" not in rating) and config.bot_mode == constants.SEARCH_LADDER:
                     rating = await ps_websocket_client.receive_message()
