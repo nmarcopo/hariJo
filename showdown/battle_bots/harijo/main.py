@@ -178,16 +178,16 @@ class BattleBot(Battle):
         oppTotalHP *=100
 
     
-        if myTotalHP > oppTotalHP:
-            print("We are ahead, bot will play safe")
-            bot_choice = self.safest_pick(root)
-        else:
-            #the higher the safety constant, the more likely we will choose the safest move. The lower, the more aggressive our bot will play
-            safety = 3*myTotalHP/oppTotalHP
-            print(f"we are behind, bot will play aggressively with safety constant of {safety}")
-            bot_choice = self.aggressive_pick(root,safety)
-            print(f"choice: {bot_choice}")
-            print(f"the safest pick was {self.safest_pick(root)}")
+        # if myTotalHP > oppTotalHP:
+        #     print("We are ahead, bot will play safe")
+        #     bot_choice = self.safest_pick(root)
+        # else:
+        #the higher the safety constant, the more likely we will choose the safest move. The lower, the more aggressive our bot will play
+        safety = 3*myTotalHP/oppTotalHP
+        print(f"we are behind, bot will play aggressively with safety constant of {safety}")
+        bot_choice = self.aggressive_pick(root,safety)
+        print(f"choice: {bot_choice}")
+        print(f"the safest pick was {self.safest_pick(root)}")
 
         print("Choice: {}".format(bot_choice))
         return bot_choice
