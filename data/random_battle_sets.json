@@ -14217,6 +14217,41 @@
             ]
         ]
     },
+    "unown": {
+        "abilities": [
+            [
+                "levitate",
+                100.0
+            ]
+        ],
+        "count": 274,
+        "items": [
+            [
+                "choicespecs",
+                100.0
+            ]
+            
+        ],
+        
+        "moves": [
+            [
+                "hiddenpower",
+                100.0
+            ]
+            
+        ],
+        "sets": {
+            "hiddenpower": 100.0
+        
+        },
+        "spreads": [
+            [
+                "serious",
+                "85,85,85,85,85,85",
+                100.0
+            ]
+        ]
+    },
     "solrock": {
         "abilities": [
             [
@@ -14243,6 +14278,7 @@
                 2.555
             ]
         ],
+        
         "moves": [
             [
                 "rockslide",
