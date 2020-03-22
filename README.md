@@ -8,6 +8,29 @@ Created by Austin Sura and Nicholas Marcopoli
 ## Python version
 Developed and tested using Python 3.7.3.
 
+## Milestone 3 README Section
+
+New Features:
+
+- Harijo now only selects an aggressive move using the weighted average strategy from Milestone 2. We no longer pick the safest move using the minimax algorithm.
+- Track elo history to a file using the new `TRACK_RANKING` flag in the `.env` file.
+
+To track elo history ranking, simply add `TRACK_RANKING=True` to the `.env` file. Elo history will be appended to a file in the base Harijo directory called `rankingsProgress.txt`.
+
+Here is an example `.env` file that will output elo history to `rankingsProgress.txt`:
+
+```
+WEBSOCKET_URI=sim.smogon.com:8000
+PS_USERNAME=harijo
+PS_PASSWORD=battlebot
+BOT_MODE=SEARCH_LADDER
+POKEMON_MODE=gen4randombattle
+RUN_COUNT=100
+BATTLE_BOT="harijo"
+LOG_LEVEL="DEBUG"
+TRACK_RANKING=True
+```
+
 ## Milestone 2 README Section
 
 Our control mechanism is an implementation of the behavior tree concept. Note, we do not have a concrete behavior tree, but rather IF statements that accomplish the same functionality as a behavior tree implemented as a tree. Our tree checks the game state to determine if we are ahead, or if we are behind and to what degree. This is determined by calculating the total HP percentage of our bot’s pokemon and the opponents pokemon. Based on this information, we will choose an appropriate strategy for selecting a move.
