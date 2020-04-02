@@ -2,3 +2,4 @@ __pycache__/
 myenv/
 .vscode/
 milestone1/
+chatMessages.txt

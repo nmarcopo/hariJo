@@ -37,6 +37,7 @@ def parse_configs():
     config.pokemon_mode = env("POKEMON_MODE", constants.DEFAULT_MODE)
     config.run_count = int(env("RUN_COUNT", 1))
     config.track_ranking = env("TRACK_RANKING", config.track_ranking)
+    config.track_chat = env("TRACK_CHAT", config.track_chat)
 
     if config.bot_mode == constants.CHALLENGE_USER:
         config.user_to_challenge = env("USER_TO_CHALLENGE")

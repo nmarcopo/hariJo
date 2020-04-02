@@ -3,8 +3,10 @@ import websockets
 import requests
 import json
 import time
+import re
 
 from config import logger
+import config
 
 
 class LoginError(Exception):
@@ -37,6 +39,12 @@ class PSWebsocketClient:
 
     async def receive_message(self):
         message = await self.websocket.recv()
+        # check to see if we have a chat message and if we're tracking messages
+        if "\n\n|c|" in message and config.track_chat == "True":
+            chatRegex = re.compile('\\n\\n\|c\|(.+)\\n$')
+            chatSearch = chatRegex.search(message)
+            with open("chatMessages.txt", "a") as f:
+                f.write(chatSearch.group(1) + '\n')
         logger.debug("Received from websocket: {}".format(message))
         return message
 

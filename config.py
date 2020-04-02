@@ -17,6 +17,7 @@ gambit_exe_path = ""
 greeting_message = 'hf'
 battle_ending_message = 'gg'
 track_ranking = False
+track_chat = False
 
 use_relative_weights = False
 damage_calc_type = 'average'
