@@ -177,13 +177,56 @@ class BattleBot(Battle):
         oppTotalHP += unseenPoke
         oppTotalHP *=100
 
-    
+        """
+        POKEMON_STATIC_STATUSES = {
+            constants.FROZEN: -40,
+            constants.SLEEP: -25,
+            constants.PARALYZED: -25,
+            constants.TOXIC: -30,
+            constants.POISON: -10,
+            None: 0
+        }
+        """
+        possibleStatuses = {
+            "psn" : .06,
+            "frz" : .25,
+            "tox" : .19,
+            "par" : .16,
+            "slp" : .16,
+            "brn" : .20,
+            None: 0,
+        }
+
+        # check how many status conditions we have
+        myStatuses = 0
+        # active pokemon
+        myStatuses += possibleStatuses[my_pokes.active.status]
+        # reserve pokemon
+        for p in my_pokes.reserve.values():
+            myStatuses += possibleStatuses[p.status]
+
+        # check how many status conditions opponent has
+        opponentStatuses = 0
+        # active pokemon
+        opponentStatuses += possibleStatuses[opp_pokes.active.status]
+        # reserve pokemon
+        for p in opp_pokes.reserve.values():
+            opponentStatuses += possibleStatuses[p.status]
+
+        status_aggression_multiplier = 1
+        status_aggression_modifier = (opponentStatuses - myStatuses) * status_aggression_multiplier
+        print(f"Status modifier:{status_aggression_modifier}")
+
+
         # if myTotalHP > oppTotalHP:
         #     print("We are ahead, bot will play safe")
         #     bot_choice = self.safest_pick(root)
         # else:
         #the higher the safety constant, the more likely we will choose the safest move. The lower, the more aggressive our bot will play
-        safety = 3*myTotalHP/oppTotalHP
+        safety = (3 + status_aggression_modifier) * myTotalHP/oppTotalHP
+        if safety < 0:
+            print("WARNING: safety constant is less than 0, changing to 0.1")
+            safety = 0.1
         print(f"we are behind, bot will play aggressively with safety constant of {safety}")
         bot_choice = self.aggressive_pick(root,safety)
         print(f"choice: {bot_choice}")
