@@ -44,7 +44,10 @@ class PSWebsocketClient:
             chatRegex = re.compile('\\n\\n\|c\|(.+)\\n$')
             chatSearch = chatRegex.search(message)
             with open("chatMessages.txt", "a") as f:
-                f.write(chatSearch.group(1) + '\n')
+                try:
+                    f.write(chatSearch.group(1) + '\n')
+                except:
+                    f.write(f"ERROR: COULD NOT PARSE THIS MESSAGE:{message}\n")
         logger.debug("Received from websocket: {}".format(message))
         return message
 
