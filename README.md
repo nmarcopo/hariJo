@@ -8,6 +8,32 @@ Created by Austin Sura and Nicholas Marcopoli
 ## Python version
 Developed and tested using Python 3.7.3.
 
+## Milestone 4 README Section
+
+The two new features we’ve implemented for this milestone are status condition evaluation for our move choice and a chat log to keep track of opponent messages (e.g. trash talk). 
+
+Our move choice function calculates a safety constant as before now our calculation will change based on friendly and opponent status conditions. Each different status condition has a different value ranging from .1 to .25. The safety factor will be increased if the opponent has status conditions, and decreased if our pokemon have status conditions. We can increase or decrease the impact of status conditions in the calculation using the `status_aggession_modifier` constant.
+
+We developed the values for each status condition through expert knowledge of our experience playing the game and well known strategies in pokemon. We also chose to weigh the status conditions in general based on how we perceived the impact of the conditions on the game. We tested a couple different `status_aggression_modifier` values to determine the best value.
+
+Our chat log activates when the user includes the optional flag `TRACK_CHAT=True` in their `.env` file. When this is activated, chat messages from the bot, the opponent, and other spectators will be output to a file, `chatMessages.txt`. This is done by using a regular expression on all incoming websocket messages - if the message begins with `|c|`, we know that it is a chat message and can send it to the file. Some interesting messages included users discovering that their opponent was a bot and some trash talk from the opponent.
+
+Below is an example of a `.env` file that will output chat messages to a file:
+
+```
+WEBSOCKET_URI=sim.smogon.com:8000
+PS_USERNAME=harijo
+PS_PASSWORD=battlebot
+BOT_MODE=SEARCH_LADDER
+POKEMON_MODE=gen4randombattle
+RUN_COUNT=1
+BATTLE_BOT="harijo"
+LOG_LEVEL="DEBUG"
+TRACK_CHAT=True
+```
+
+Our Makefile retains the functionality of make build, make install, make test, and make clean from the previous milestone.
+
 ## Milestone 3 README Section
 
 New Features:
