@@ -186,6 +186,21 @@ class BattleBot(Battle):
             constants.POISON: -10,
             None: 0
         }
+        POKEMON_BOOST_DIMINISHING_RETURNS = {
+        -6: -3.3,
+        -5: -3.15,
+        -4: -3,
+        -3: -2.5,
+        -2: -2,
+        -1: -1,
+        0: 0,
+        1: 1,
+        2: 2,
+        3: 2.5,
+        4: 3,
+        5: 3.15,
+        6: 3.30,
+    }
         """
         possibleStatuses = {
             "psn" : .06,
