@@ -212,6 +212,22 @@ class BattleBot(Battle):
             None: 0,
         }
 
+        statBuffs = {
+            6 : .25,
+            5 : .235,
+            4 : .22,
+            3 : .19,
+            2 : .15,
+            1 : .08,
+            0 : 0,
+            -1 : -.08,
+            -2 : -.15,
+            -3 : -.19,
+            -4 : -.22,
+            -5 : -.235,
+            -6 : -.25,
+        }
+
         # check how many status conditions we have
         myStatuses = 0
         # active pokemon
@@ -232,13 +248,39 @@ class BattleBot(Battle):
         status_aggression_modifier = (opponentStatuses - myStatuses) * status_aggression_multiplier
         print(f"Status modifier:{status_aggression_modifier}")
 
+        # Stat Buffs
+        # check how many stat boosts/nerfs we have
+        myBuffs = 0
+        # active pokemon
+        myBuffs += statBuffs[my_pokes.active.accuracy_boost]
+        myBuffs += statBuffs[my_pokes.active.attack_boost]
+        myBuffs += statBuffs[my_pokes.active.defense_boost]
+        myBuffs += statBuffs[my_pokes.active.evasion_boost]
+        myBuffs += statBuffs[my_pokes.active.special_attack_boost]
+        myBuffs += statBuffs[my_pokes.active.special_defense_boost]
+        myBuffs += statBuffs[my_pokes.active.speed_boost]
+        
+        # check how many stat boosts/nerfs opponent has
+        oppBuffs = 0
+        # active pokemon
+        oppBuffs += statBuffs[opp_pokes.active.accuracy_boost]
+        oppBuffs += statBuffs[opp_pokes.active.attack_boost]
+        oppBuffs += statBuffs[opp_pokes.active.defense_boost]
+        oppBuffs += statBuffs[opp_pokes.active.evasion_boost]
+        oppBuffs += statBuffs[opp_pokes.active.special_attack_boost]
+        oppBuffs += statBuffs[opp_pokes.active.special_defense_boost]
+        oppBuffs += statBuffs[opp_pokes.active.speed_boost]
+
+        buff_aggression_multiplier = 1
+        buff_aggression_modifier = (myBuffs - oppBuffs) * buff_aggression_multiplier
+        print(f"Buff modifier:{buff_aggression_modifier}")
 
         # if myTotalHP > oppTotalHP:
         #     print("We are ahead, bot will play safe")
         #     bot_choice = self.safest_pick(root)
         # else:
         #the higher the safety constant, the more likely we will choose the safest move. The lower, the more aggressive our bot will play
-        safety = (3 + status_aggression_modifier) * myTotalHP/oppTotalHP
+        safety = (3 + status_aggression_modifier + buff_aggression_modifier) * myTotalHP/oppTotalHP
         if safety < 0:
             print("WARNING: safety constant is less than 0, changing to 0.1")
             safety = 0.1
