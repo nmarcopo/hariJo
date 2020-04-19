@@ -41392,6 +41392,76 @@
             ]
         ]
     },
+    "unown": {
+        "abilities": [
+            [
+                "levitate",
+                100.0
+            ]
+        ],
+        "count": 274,
+        "items": [
+            [
+                "choicespecs",
+                100.0
+            ]
+            
+        ],
+        
+        "moves": [
+            [
+                "hiddenpowerpsychic",
+                100.0
+            ]
+            
+        ],
+        "sets": {
+            "hiddenpowerpsychic": 100.0
+        
+        },
+        "spreads": [
+            [
+                "serious",
+                "85,85,85,85,85,85",
+                100.0
+            ]
+        ]
+    },
+    "ditto": {
+        "abilities": [
+            [
+                "limber",
+                100.0
+            ]
+        ],
+        "count": 274,
+        "items": [
+            [
+                "leftovers",
+                100.0
+            ]
+            
+        ],
+        
+        "moves": [
+            [
+                "transform",
+                100.0
+            ]
+            
+        ],
+        "sets": {
+            "transform": 100.0
+        
+        },
+        "spreads": [
+            [
+                "serious",
+                "85,85,85,85,85,85",
+                100.0
+            ]
+        ]
+    },
     "zygarde10": {
         "abilities": [
             [

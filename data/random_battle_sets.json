@@ -14235,13 +14235,13 @@
         
         "moves": [
             [
-                "hiddenpowerpsychic60",
+                "hiddenpowerpsychic",
                 100.0
             ]
             
         ],
         "sets": {
-            "hiddenpowerpyschic60": 100.0
+            "hiddenpowerpsychic": 100.0
         
         },
         "spreads": [
