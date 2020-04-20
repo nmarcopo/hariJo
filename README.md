@@ -8,6 +8,15 @@ Created by Austin Sura and Nicholas Marcopoli
 ## Python version
 Developed and tested using Python 3.7.3.
 
+## Milestone 5 README Section
+For this milestone, we finally fixed our problems with the pokemon Unown and Ditto. We added their data into the JSON file that included each pokemon and their possible movesets, and the game now recognizes their movesets correctly. We also added a safety constant modifier that looks at stat buffs. We’re currently testing this approach now and will update the class when we have our presentation.
+
+One notable feature that could be implemented in the future is further refinements to the main battle engine. For example, the move “sucker punch” is still not properly understood by the engine, as it does not realize that for the move to succeed, the opponent must use an attacking move. This allows the bot to be exploited and an opponent could simply use a non-attacking move to avoid damage from sucker punch. Another flaw with the battle system is its failure to understand the pokemon Keckleon’s ability, Color Change. This ability allows the pokemon to change its type depending on the move used to attack it. The engine does not recognize the changed typing and continues attacking as if its type had not changed.
+
+Another feature that we think would be interesting to work on is a new bot based on machine learning that is trained by playing games against this current bot. We think that this is a great starting point for a new bot since it’s able to beat top ranked players, but the refinements machine learning could make to this bot could potentially fix some of the issues we outlined earlier.
+
+We have a number of magic variables that can be tweaked to alter our bot’s performance. The most important magic number is our initial safety constant (`safety`). We set this number to three, which functions as the baseline aggressiveness of our bot. There are other magic variables that affect this safety constant such as our status condition multiplier (`status_aggression_multiplier`) and also our stat buff multiplier (`buff_aggression_multiplier`). The ratios of how each status condition affects the safety constant are set in stone, but the degree to which they affect it as a whole can be altered. The same idea is true for the stat buff multiplier. In terms of configuration files, the .env has a number of options that can affect the bot. The flags TRACK_RANKING and TRACK_CHAT allow users of the bot to gather data from our website. We have described how to use these flags earlier in our README. The other .env flags came with our starter bot.
+
 ## Milestone 4 README Section
 
 The two new features we’ve implemented for this milestone are status condition evaluation for our move choice and a chat log to keep track of opponent messages (e.g. trash talk). 
