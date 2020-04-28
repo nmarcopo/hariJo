@@ -8,6 +8,13 @@ Created by Austin Sura and Nicholas Marcopoli
 ## Python version
 Developed and tested using Python 3.7.3.
 
+## Outstanding Bugs and Unimplemented Features
+- Chat monitor raises an exception when an opponent types any command into the chat, such as `!weak [pokemon_name]`. Currently, the exception is caught and the message is sent, unparsed, to the chat log file.
+- Pokemon that change type, like Kekleon and Ditto, do not have their updated types registered in the bot.
+- Future work could include a machine learning component for determining safety constant and status condition values.
+- Our current approach involves “magic” numbers with heuristics, but a machine learning approach could find the optimal solution over time.
+- Currently our bot is only designed for generation 4 random battles. Future work would make our bot robust and able to play many generations.
+
 ## Milestone 5 README Section
 For this milestone, we finally fixed our problems with the pokemon Unown and Ditto. We added their data into the JSON file that included each pokemon and their possible movesets, and the game now recognizes their movesets correctly. We also added a safety constant modifier that looks at stat buffs. We’re currently testing this approach now and will update the class when we have our presentation.
 
