@@ -14,6 +14,8 @@ Developed and tested using Python 3.7.3.
 - Future work could include a machine learning component for determining safety constant and status condition values.
 - Our current approach involves “magic” numbers with heuristics, but a machine learning approach could find the optimal solution over time.
 - Currently our bot is only designed for generation 4 random battles. Future work would make our bot robust and able to play many generations.
+- Our bot could be extended to play more than one game simultaneously.
+- Our bot could search deeper into the game tree and look further into possible moves.
 
 ## Milestone 5 README Section
 For this milestone, we finally fixed our problems with the pokemon Unown and Ditto. We added their data into the JSON file that included each pokemon and their possible movesets, and the game now recognizes their movesets correctly. We also added a safety constant modifier that looks at stat buffs. We’re currently testing this approach now and will update the class when we have our presentation.
